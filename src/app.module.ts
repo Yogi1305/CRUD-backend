@@ -4,6 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { PostModule } from './post/post.module';
+import { AuthModule } from './auth/auth.module';
+
+
 
 @Module({
   imports: [
@@ -15,9 +18,9 @@ import { PostModule } from './post/post.module';
       ssl: { rejectUnauthorized: false }, // Required for Supabase
       autoLoadEntities: true,
       synchronize: true, // dev only
-    }), PostModule,
+    }), PostModule, AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ],
 })
 export class AppModule {}
