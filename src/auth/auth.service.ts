@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/post/post.entity';
 import { SignupDto, SigninDto } from './signup.dtos';
+import { response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -66,13 +67,18 @@ export class AuthService {
 
     const payload = { sub: user.id, email: user.email };
     const token = this.jwtService.sign(payload);
-
+//      response.cookie('access_token', token, {
+//     httpOnly: true,
+//     secure: process.env.NODE_ENV === 'production', // true in prod
+//     sameSite: 'strict',
+//     maxAge: 7 * 24 * 60 * 60 * 1000,
+//   });
     return {
-      message: 'Signin successful',
-      access_token: token,
-      id: user.id,
+    //   message: 'Signin successful',
+      token: token,
+     user: {id: user.id,
       email: user.email,
-      name: user.name,
+      name: user.name,}
     };
   }
 }
